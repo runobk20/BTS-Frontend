@@ -6,8 +6,8 @@ export function NavItem({navSize, icon, title, active, path = '1'}) {
     const NAV_CONDITION = (navSize === 'small');
 
     const activeStyle = {
-        backgroundColor: 'brand.500',
-        color: 'black'
+        backgroundColor: 'brand.600',
+        color: 'white'
     }
 
     return (
@@ -26,7 +26,7 @@ export function NavItem({navSize, icon, title, active, path = '1'}) {
                 px={3}
                 py={3}
                 borderRadius={8}
-                _hover={{textDecoration: 'none', backgroundColor: 'brand.500'}}
+                _hover={{textDecoration: 'none', backgroundColor: 'brand.500', color: 'white'}}
                 w={navSize === 'large' && '100%'}
             >
                 <MenuButton w='100%'>

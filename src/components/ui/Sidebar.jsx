@@ -4,9 +4,6 @@ import { NavItem } from "./NavItem";
 import { FaArrowRight, FaBars, FaBell, FaBolt, FaHome, FaUser } from 'react-icons/fa';
 import { NavMenu } from "./NavMenu";
 
-//Mobile vh solution
-let vh = window.innerHeight * 0.01;
-
 export function Sidebar() {
 
     const [navSize, setNavSize] = useState('large');
@@ -18,8 +15,8 @@ export function Sidebar() {
         <Flex
             pos='sticky'
             left='0'
-            h={`calc((${vh}px, 1vh) * 100)`}
-            boxShadow='0 4px 12px 0 rgba(0, 0, 0, 0.5)'
+            bottom='0'
+            boxShadow='0 4px 6px 0 rgba(0, 0, 0, 0.5)'
             borderRightRadius={NAV_CONDITION ? '15px' : '8px'}
             w={NAV_CONDITION ? '75px' : '220px'}
             flexDir='column'

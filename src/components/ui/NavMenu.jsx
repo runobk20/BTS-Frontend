@@ -3,8 +3,8 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const activeStyle = {
-    backgroundColor: 'brand.500',
-    color: 'black'
+    backgroundColor: 'brand.600',
+    color: 'white'
 }
 
 export function NavMenu({navSize, navSizeFn, icon, title, path}) {
@@ -38,10 +38,9 @@ export function NavMenu({navSize, navSizeFn, icon, title, path}) {
                     _activeLink={activeStyle}
                     p={3}
                     borderRadius={8}
-                    _hover={{textDecoration: 'none', backgroundColor: 'brand.500'}}
+                    _hover={{textDecoration: 'none', backgroundColor: 'brand.500', color: 'white'}}
                     w={navSize === 'large' && '100%'}
                 onClick={onOpenMenu}
-
                 >
             <MenuButton
                 w='100%' 
@@ -57,12 +56,12 @@ export function NavMenu({navSize, navSizeFn, icon, title, path}) {
         {
             (isOpen && navSize === 'large') &&
             <>
-                <Button colorScheme='blue' size='sm' alignSelf='start' m={3}>Create New</Button>
+                <Button colorScheme='secondary' size='sm' alignSelf='start' m={3}>Create New</Button>
 
                 <Accordion w='100%' p={3} allowToggle>
                 <AccordionItem>
                     <h2>
-                        <AccordionButton _expanded={{bg: 'brand.500', color: 'black', borderRadius: '8px'}}>
+                        <AccordionButton _expanded={{bg: 'brand.600', color: 'white', borderRadius: '8px'}}>
                             <Box as='span' flex='1' textAlign='left'>Own Projects</Box>
                         </AccordionButton>
                     </h2>
@@ -75,7 +74,7 @@ export function NavMenu({navSize, navSizeFn, icon, title, path}) {
 
                 <AccordionItem>
                     <h2>
-                        <AccordionButton _expanded={{bg: 'brand.500', color: 'black', borderRadius: '8px'}}>
+                        <AccordionButton _expanded={{bg: 'brand.600', color: 'white', borderRadius: '8px'}}>
                             <Box as='span' flex='1' textAlign='left'>Others Projects</Box>
                         </AccordionButton>
                     </h2>
