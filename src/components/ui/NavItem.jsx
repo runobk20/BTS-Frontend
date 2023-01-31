@@ -31,8 +31,8 @@ export function NavItem({navSize, icon, title, active, path = '1'}) {
             >
                 <MenuButton w='100%'>
                     <Flex>
-                        <Icon as={icon} fontSize='xl' color={'gray.800'}/>
-                        <Text ml={5} display={NAV_CONDITION ? 'none' : 'flex'}>{title}</Text>
+                        <Icon as={icon} fontSize='xl' color={'gray.800'} alignSelf='center'/>
+                        <Text ml={5} fontSize={{base: 'sm', md: 'md', lg: 'lg'}} display={NAV_CONDITION ? 'none' : 'flex'}>{title}</Text>
                     </Flex>
                 </MenuButton>
             </Link>

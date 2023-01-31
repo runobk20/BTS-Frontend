@@ -4,7 +4,6 @@ import { Box, Button, Flex, Heading, HStack, Link, Text, useToast, VStack } from
 import { useAuthStore } from "../../hooks";
 import { Formik } from "formik";
 import { PasswordField, TextField, SelectField } from "../../components";
-import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import * as Yup from "yup";
 
 
@@ -57,12 +56,14 @@ export function SignUpPage() {
                 >
                     <Heading as='h2' fontSize={30} my={4} textAlign='center'>Sign Up</Heading>
                     
-                    <TextField label='Full name' name='name' placeholder='Your name' variant='flushed' icon={<FaUser color='black'/>}/>
-                    <TextField label='Email' name='email' placeholder='Your email' type='email' variant='flushed' icon={<FaEnvelope color='black'/>}/>
+                    <Flex gap='3' justifyContent='space-evenly'>
+                        <TextField label='Full name' name='name' placeholder='Your name' variant='filled'/>
+                        <TextField label='Email' name='email' placeholder='Your email' type='email' variant='filled'/>
+                    </Flex>
 
-                    <PasswordField label='Password' name='password' placeholder='Your password' variant='flushed' icon={<FaLock/>}/>
-                    <PasswordField label='Confirm password' name='confirmPassword' placeholder='Confirm your password' variant='flushed' icon={<FaLock/>}/>
-                    <SelectField label='Role' name='role' placeholder='Select option' options={[{tester: 'Tester'}, {developer: 'Developer'}]}/>
+                    <PasswordField label='Password' name='password' placeholder='Your password' variant='filled' />
+                    <PasswordField label='Confirm password' name='confirmPassword' placeholder='Confirm password' variant='filled'/>
+                    <SelectField label='Role' name='role' placeholder='Select option' variant='filled' options={[{tester: 'Tester'}, {developer: 'Developer'}]}/>
 
                     <Button colorScheme='brand' type="submit">Create Account</Button>
 

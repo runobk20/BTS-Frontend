@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Avatar, Button, Divider, Flex, Heading, IconButton, Text } from "@chakra-ui/react";
 import { NavItem } from "./NavItem";
-import { FaArrowRight, FaBars, FaBell, FaBolt, FaHome, FaUser } from 'react-icons/fa';
 import { NavMenu } from "./NavMenu";
+import { FaArrowRight, FaBars, FaBell, FaBolt, FaHome, FaUser } from 'react-icons/fa';
+import { useAuthStore } from "../../hooks";
 
 export function Sidebar() {
 
+    const {user, startLogout} = useAuthStore();
     const [navSize, setNavSize] = useState('large');
     const NAV_CONDITION = (navSize === 'small');
 
@@ -18,7 +20,7 @@ export function Sidebar() {
             bottom='0'
             boxShadow='0 4px 6px 0 rgba(0, 0, 0, 0.5)'
             borderRightRadius={NAV_CONDITION ? '15px' : '8px'}
-            w={NAV_CONDITION ? '75px' : '220px'}
+            w={NAV_CONDITION ? '75px' : {sm: '200px', md: '250px', lg: '300px'}}
             flexDir='column'
             justifyContent='space-between'
             overflow='scroll'
@@ -45,7 +47,7 @@ export function Sidebar() {
                 />
 
                 <NavItem navSize={navSize} icon={FaHome} title='Dashboard' path='/'/>
-                <NavMenu navSize={navSize} navSizeFn={setNavSize} icon={FaBolt} title='Projects' path='projects'/>
+                <NavMenu navSize={navSize} navSizeFn={setNavSize} projectsList={[user.ownProjects, user.projects]} icon={FaBolt} title='Projects' path='projects'/>
                 <NavItem navSize={navSize} icon={FaUser} title='My Profile' path='myProfile'/>
                 <NavItem navSize={navSize} icon={FaBell} title='Notifications' path='notifications'/>
 
@@ -61,10 +63,10 @@ export function Sidebar() {
             >
                 <Divider display={NAV_CONDITION ? 'none' : 'flex'}/>
                 <Flex mt={4} align='center'>
-                    <Avatar size='sm' src=""/>
+                    <Avatar size={{base: 'sm', md: 'md'}} src={user.avatar}/>
                     <Flex flexDir='column' ml={4} display={NAV_CONDITION ? 'none' : 'flex'}>
-                        <Heading as='h3' size='sm'>Username</Heading>
-                        <Text color='gray'>Role</Text>
+                        <Heading as='h3' fontSize={{base: 'sm', md: 'md', lg: 'lg'}}>{user.name}</Heading>
+                        <Text color='gray' fontSize={{base: 'sm', md: 'md', lg: 'lg'}}>{user.role}</Text>
                     </Flex>
                 </Flex>
                 {
@@ -79,7 +81,7 @@ export function Sidebar() {
                         icon={<FaArrowRight/>}
                         onClick={() => {}}
                     />
-                    : <Button rightIcon={<FaArrowRight/>} colorScheme='red' mt={5}>Log out</Button>
+                    : <Button rightIcon={<FaArrowRight/>} colorScheme='red' mt={5} size={{base: 'sm', md: 'md', lg: 'lg'}} onClick={startLogout}>Log out</Button>
                 }
 
             </Flex>

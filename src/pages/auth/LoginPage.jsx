@@ -3,7 +3,6 @@ import { Link as RLink } from "react-router-dom";
 import { Box, Button, Flex, Heading, HStack, Link, Text, useToast, VStack } from "@chakra-ui/react";
 import { useAuthStore } from "../../hooks";
 import { PasswordField, TextField } from "../../components";
-import { FaEnvelope, FaLock } from "react-icons/fa";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -11,6 +10,10 @@ export function LoginPage() {
 
     const {errorMsg, startLogin} = useAuthStore();
     const toast = useToast();
+
+    function onDemoLogin() {
+        startLogin({email: 'jhondoe@admin.com', password: 'adminPassword'})
+    }
 
     useEffect(() => {
         if(errorMsg !== null) toast({
@@ -52,13 +55,13 @@ export function LoginPage() {
                 >
                     <Heading as='h2' fontSize={30} my={4} textAlign='center'>Login</Heading>
                     
-                    <TextField label='Email' name='email' placeholder='Your email' type='email' variant='flushed' icon={<FaEnvelope color='black'/>}/>
+                    <TextField label='Email' name='email' placeholder='Your email' type='email' variant='filled'/>
 
-                    <PasswordField label='Password' name='password' placeholder='Your password' variant='flushed' icon={<FaLock/>}/>
+                    <PasswordField label='Password' name='password' placeholder='Your password' variant='filled'/>
 
                     <Button colorScheme='brand' type="submit">Login</Button>
                     <Text fontSize='sm' textAlign='center' my={2}>or</Text>
-                    <Button colorScheme='secondary'>Use Demo Account</Button>
+                    <Button colorScheme='secondary' onClick={onDemoLogin}>Use Demo Account</Button>
 
                     <Box w='100%' h={50} bg='transparent'></Box>
 
