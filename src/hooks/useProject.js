@@ -16,7 +16,6 @@ export function useProject() {
         try {
 
             const {data} = await backendApi.get(`/projects/${id}`);
-            console.log(data);
             setProject(data.project);
             setisLoading(false);
 
@@ -49,7 +48,6 @@ export function useProject() {
             }, 3000);
 
         } catch(error) {
-            console.log(error);
             const errMsg = error.response.data.msg || 'Something went wrong';
             setErrorMsg(errMsg);
             setTimeout(() => {
@@ -113,7 +111,6 @@ export function useProject() {
             })
 
         } catch (error) {
-            console.log(error)
             const errMsg = error.response.data.msg || 'Something went wrong';
             setErrorMsg(errMsg);
             setTimeout(() => {

@@ -50,6 +50,7 @@ export function useAuthStore() {
     function startLogout() {
         localStorage.removeItem('token');
         dispatch(onLogout(null));
+        window.location.reload();
     }
 
     async function checkAuthToken() {

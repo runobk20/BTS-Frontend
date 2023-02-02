@@ -53,7 +53,7 @@ export function MembersDisplay({projectMembers = [], isLeader, projectId}) {
                         </TableContainer>
                         {
                             isLeader && (
-                                <Flex justify='end' gap={4} mt={3}>
+                                <Flex justify='end' gap={3} mt={3}>
                                     <Button colorScheme='purple' size='sm' onClick={() => onOpen(true)}>Add</Button>
                                     <Button colorScheme='danger' size='sm' onClick={() => remMemberOpen(true)}>Remove</Button>
                                 </Flex>

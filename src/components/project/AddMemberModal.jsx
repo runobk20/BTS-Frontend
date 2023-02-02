@@ -39,9 +39,9 @@ export function AddMemberModal(props) {
                             <FormLabel>Email</FormLabel>
                             <Input type='email' placeholder="User Email" value={email} onChange={({target}) => setEmail(target.value)}/>
                         </FormControl>
-                        <Flex justify='end' my={4} gap={4}>
-                            <Button colorScheme='danger' onClick={onClose}>Cancel</Button>
-                            <Button colorScheme='purple' color='black' type='submit'>Add</Button>
+                        <Flex justify='end' my={4} gap={3}>
+                            <Button onClick={onClose}>Cancel</Button>
+                            <Button colorScheme='purple' type='submit'>Add</Button>
                         </Flex>
                     </Box>
                 </ModalBody>

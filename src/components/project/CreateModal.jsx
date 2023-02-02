@@ -46,8 +46,8 @@ export function CreateModal(props) {
                             <FormLabel>Description</FormLabel>
                             <Input placeholder="Description" value={description} onChange={({target}) => setDescription(target.value)}/>
                         </FormControl>
-                        <Flex justify='end' my={4} gap={4}>
-                            <Button colorScheme='danger' onClick={onClose}>Cancel</Button>
+                        <Flex justify='end' my={4} gap={3}>
+                            <Button onClick={onClose}>Cancel</Button>
                             <Button colorScheme='purple' type='submit'>Create</Button>
                         </Flex>
                     </Box>

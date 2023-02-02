@@ -8,23 +8,14 @@ const activeStyle = {
     cursor: 'pointer'
 }
 
-export function NavMenu({navSize, navSizeFn, projectsList ,icon, title}) {
-
-    const NAV_CONDITION = (navSize === 'small');
+export function NavMenu({projectsList ,icon, title}) {
 
     const [ownProjects, projects] = projectsList;
     const [isOpen, setIsOpen] = useState(false);
     const {isOpen:isModalOpen, onOpen, onClose} = useDisclosure();
 
     function onOpenMenu() {
-        if(NAV_CONDITION && !isOpen) {
-            navSizeFn('large');
-            setIsOpen(true);
-        } else if(NAV_CONDITION && isOpen) {
-            navSizeFn('large');
-        } else {
-            setIsOpen(!isOpen);
-        }
+        setIsOpen(!isOpen);
     }
 
     return (
@@ -32,12 +23,11 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title}) {
         <CreateModal isOpen={isModalOpen} onClose={onClose}/>
         
         <Flex
-            mt={30}
+            mt={5}
             flexDir='column'
             w='100%'
-            align={NAV_CONDITION ? 'center' : 'flex-start'}
+            align='center'
         >
-
 
         <Menu placement='right'>
             <Box
@@ -46,7 +36,7 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title}) {
                     p={3}
                     borderRadius={8}
                     _hover={{textDecoration: 'none', backgroundColor: 'purple.400'}}
-                    w={navSize === 'large' && '100%'}
+                    w='100%'
                 onClick={onOpenMenu}
                 >
             <MenuButton
@@ -54,14 +44,14 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title}) {
             >
                 <Flex>
                     <Icon as={icon} fontSize='xl' color='gray.400' alignSelf='center'/>
-                    <Text ml={5} fontSize={{base: 'sm', sm: 'sm', md: 'md', lg: 'lg'}} display={NAV_CONDITION ? 'none' : 'flex'}>{title}</Text>
+                    <Text ml={5} fontSize={{base: 'sm', sm: 'sm', md: 'md', lg: 'lg'}}>{title}</Text>
                 </Flex>
             </MenuButton>
             </Box>
         </Menu>
 
         {
-            (isOpen && navSize === 'large') &&
+            (isOpen) &&
             <>
                 <Button colorScheme='purple' size={{base: 'sm', lg: 'md'}} alignSelf='start' m={3} onClick={onOpen}>Create New</Button>
 

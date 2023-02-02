@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuthStore, useProject } from "../hooks";
-import { Avatar, Box, Button, Divider, Flex, Grid, Heading, HStack, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Button, Card, CardBody, Divider, Flex, Grid, Heading, HStack, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
 import { DeleteAlert, Loader, MembersDisplay } from "../components";
 import { BugsDisplay } from "../components/project/BugsDisplay";
 
@@ -38,32 +38,34 @@ export function ProjectPage() {
             <>
 
             <DeleteAlert isOpen={isOpen} onClose={onClose} projectId={projectId}/>
-                <Grid templateColumns={{base: '1', md: '1fr 2fr'}} gap={5}>
+                <Grid templateColumns={{base: '1', md: '1fr 2fr'}} gap={6}>
                     <VStack alignItems='start' flexBasis='1'>
-                        <Box>
-                            <Heading as='h2'>{project.name}</Heading>
-                            <Text>{project.description}</Text>
-                        </Box>
-                            <Flex direction='column' gap={2} w='100%'>
-                                <Heading fontSize={20}>Leader: </Heading>
-                                <Flex gap={2} align='center' justify='space-between'>
-                                    <HStack>
-                                        <Avatar size='sm' src={leader && leader.avatar}/>
-                                        <Text fontSize='lg'>{leader && leader.name}</Text>
-                                    </HStack>
-                                    {
-                                        (leader && user.uid === leader._id) && <Button alignSelf='flex-end' colorScheme='danger' onClick={onOpen}>Delete Project</Button>
-                                    }
-                                </Flex>
+                    <Heading as='h2' mb={3}>{project.name}</Heading>
+                    <Card>
+                    <CardBody>
+                        <Flex direction='column' gap={3} w='100%'>
+                        <Text>{project.description}</Text>
+                            <Heading fontSize={20}>Leader</Heading>
+                            <Flex gap={3} align='center' justify='space-between'>
+                                <HStack>
+                                    <Avatar size='sm' src={leader && leader.avatar}/>
+                                    <Text fontSize='lg'>{leader && leader.name}</Text>
+                                </HStack>
+                                {
+                                    (leader && user.uid === leader._id) && <Button alignSelf='flex-end' colorScheme='danger' onClick={onOpen}>Delete Project</Button>
+                                }
                             </Flex>
-                        <Divider/>
+                        </Flex>
+                    </CardBody>
+                    </Card>
+                    <Divider/>
 
-                        <MembersDisplay projectMembers={members} isLeader={leader && user.uid === leader._id} projectId={projectId}/>
+                    <MembersDisplay projectMembers={members} isLeader={leader && user.uid === leader._id} projectId={projectId}/>
                     </VStack>
                     <Flex flexBasis='2' alignContent='start' flexDir='column'>
-                        <Heading>Bugs</Heading>
+                        <Heading mb={3}>Bugs</Heading>
                             
-                        <BugsDisplay bugs={bugs}/>
+                        <BugsDisplay bugs={bugs} isLeader={leader && user.uid === leader._id}/>
                     </Flex>
                 </Grid>
             </>

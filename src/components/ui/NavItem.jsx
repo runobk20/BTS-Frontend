@@ -1,9 +1,7 @@
 import { Flex, Link, Menu, MenuButton, Icon, Text } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
-export function NavItem({navSize, icon, title, path}) {
-
-    const NAV_CONDITION = (navSize === 'small');
+export function NavItem({icon, title, path}) {
 
     const activeStyle = {
         backgroundColor: 'purple.500',
@@ -11,10 +9,8 @@ export function NavItem({navSize, icon, title, path}) {
 
     return (
         <Flex
-            mt={30}
-            flexDir='column'
+            mt={5}
             w='100%'
-            align={NAV_CONDITION ? 'center' : 'flex-start'}
         >
 
         <Menu placement='right'>
@@ -26,12 +22,12 @@ export function NavItem({navSize, icon, title, path}) {
                 py={3}
                 borderRadius={8}
                 _hover={{textDecoration: 'none', backgroundColor: 'purple.400'}}
-                w={navSize === 'large' && '100%'}
+                w={'100%'}
             >
                 <MenuButton w='100%'>
                     <Flex>
                         <Icon as={icon} fontSize='xl' color='gray.400' alignSelf='center'/>
-                        <Text ml={5} fontSize={{base: 'sm', md: 'md', lg: 'lg'}} display={NAV_CONDITION ? 'none' : 'flex'}>{title}</Text>
+                        <Text ml={5} fontSize={{base: 'sm', md: 'md', lg: 'lg'}}>{title}</Text>
                     </Flex>
                 </MenuButton>
             </Link>
