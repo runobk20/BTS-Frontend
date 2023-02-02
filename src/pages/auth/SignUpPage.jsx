@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link as RLink } from "react-router-dom";
-import { Box, Button, Flex, Heading, HStack, Link, Text, useToast, VStack } from "@chakra-ui/react";
+import { Button, Flex, Heading, HStack, Link, Text, useToast, VStack } from "@chakra-ui/react";
 import { useAuthStore } from "../../hooks";
 import { Formik } from "formik";
 import { PasswordField, TextField, SelectField } from "../../components";
@@ -9,6 +9,7 @@ import * as Yup from "yup";
 
 export function SignUpPage() {
 
+    const actualTheme = localStorage.getItem('chakra-ui-color-mode');
     const {errorMsg, startRegister} = useAuthStore();
     const toast = useToast();
 
@@ -45,7 +46,7 @@ export function SignUpPage() {
                 <Flex
                     direction='column'
                     as='form'
-                    bg='white'
+                    bg={actualTheme === 'light' ? 'white' : '#1a202c'}
                     border='1px solid gray.500'
                     borderRadius={8}
                     boxShadow='0 4px 5px 0 rgba(0, 0, 0, 0.5)'
@@ -57,7 +58,7 @@ export function SignUpPage() {
                     <Heading as='h2' fontSize={30} my={4} textAlign='center'>Sign Up</Heading>
                     
                     <Flex gap='3' justifyContent='space-evenly'>
-                        <TextField label='Full name' name='name' placeholder='Your name' variant='filled'/>
+                        <TextField label='Full name' name='name' placeholder='Your name' variant='filled' />
                         <TextField label='Email' name='email' placeholder='Your email' type='email' variant='filled'/>
                     </Flex>
 
@@ -65,13 +66,11 @@ export function SignUpPage() {
                     <PasswordField label='Confirm password' name='confirmPassword' placeholder='Confirm password' variant='filled'/>
                     <SelectField label='Role' name='role' placeholder='Select option' variant='filled' options={[{tester: 'Tester'}, {developer: 'Developer'}]}/>
 
-                    <Button colorScheme='brand' type="submit">Create Account</Button>
-
-                    <Box w='100%' h={50} bg='transparent'></Box>
+                    <Button colorScheme='purple' type="submit">Create Account</Button>
 
                     <HStack justify='space-between' fontSize={{base: 'sm', md: 'md', lg: 'lg', xl: 'xl'}}>
                         <Text my={4}>Already have an account?</Text>
-                        <Link as={RLink} to='/' color='brand.600' fontWeight='bold'>Log in!</Link>
+                        <Link as={RLink} to='/' color='purple.500' fontWeight='bold'>Log in!</Link>
                     </HStack>
                 </Flex>
                 </VStack>

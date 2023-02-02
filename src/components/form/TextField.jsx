@@ -1,4 +1,4 @@
-import { FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputLeftElement } from "@chakra-ui/react"
+import { FormControl, FormErrorMessage, FormLabel, Input } from "@chakra-ui/react"
 import { Field, useField } from "formik"
 
 export function TextField({label, ...props}) {
@@ -7,7 +7,7 @@ export function TextField({label, ...props}) {
     return (
         <FormControl mb={4} isInvalid={meta.error && meta.touched}>
             <FormLabel>{label}</FormLabel>
-            <Field as={Input} {...field} {...props} size={{base: 'sm', lg: 'lg'}}/>
+            <Field as={Input} {...field} {...props} focusBorderColor='purple.300' size={{base: 'sm', lg: 'lg'}}/>
             <FormErrorMessage>{meta.error}</FormErrorMessage>
         </FormControl>
     )

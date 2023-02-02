@@ -7,7 +7,7 @@ export function SelectField({label, options = [], ...props}) {
     return (
         <FormControl mb={4} isInvalid={meta.error && meta.touched}>
             <FormLabel>{label}</FormLabel>
-                <Field as={Select} {...field} {...props} size={{base: 'md', lg: 'lg'}}>
+                <Field as={Select} {...field} {...props} size={{base: 'md', lg: 'lg'}} focusBorderColor='purple.300'>
                     {
                         options.map(selectOption => {
                             const [key, value] = Object.entries(selectOption)[0];

@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { Link as RLink } from "react-router-dom";
-import { Box, Button, Flex, Heading, HStack, Link, Text, useToast, VStack } from "@chakra-ui/react";
+import { Button, Flex, Heading, HStack, Link, Text, useToast, VStack } from "@chakra-ui/react";
 import { useAuthStore } from "../../hooks";
 import { PasswordField, TextField } from "../../components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 export function LoginPage() {
-
+    
+    const actualTheme = localStorage.getItem('chakra-ui-color-mode');
     const {errorMsg, startLogin} = useAuthStore();
     const toast = useToast();
 
@@ -44,9 +45,9 @@ export function LoginPage() {
                 <Flex
                     direction='column'
                     as='form'
-                    bg='white'
                     border='1px solid gray.500'
                     borderRadius={8}
+                    bg={actualTheme === 'light' ? 'white' : '#1a202c'}
                     boxShadow='0 4px 5px 0 rgba(0, 0, 0, 0.5)'
                     py={4}
                     px={8}
@@ -59,15 +60,14 @@ export function LoginPage() {
 
                     <PasswordField label='Password' name='password' placeholder='Your password' variant='filled'/>
 
-                    <Button colorScheme='brand' type="submit">Login</Button>
+                    <Button colorScheme='purple' type="submit">Login</Button>
                     <Text fontSize='sm' textAlign='center' my={2}>or</Text>
-                    <Button colorScheme='secondary' onClick={onDemoLogin}>Use Demo Account</Button>
+                    <Button colorScheme='purple' onClick={onDemoLogin}>Use Demo Account</Button>
 
-                    <Box w='100%' h={50} bg='transparent'></Box>
 
-                    <HStack justify='space-between' fontSize={{base: 'sm', md: 'md', lg: 'lg', xl: 'xl'}}>
+                    <HStack justify='space-between' my={4} fontSize={{base: 'sm', md: 'md', lg: 'lg', xl: 'xl'}}>
                         <Text my={4}>Don't have an account?</Text>
-                        <Link as={RLink} to='signup' color='brand.600' fontWeight='bold'>Create one!</Link>
+                        <Link as={RLink} to='signup' color='purple.500' fontWeight='bold'>Create one!</Link>
                     </HStack>
                 </Flex>
                 </VStack>

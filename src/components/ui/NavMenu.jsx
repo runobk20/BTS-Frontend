@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { NavLink, Link as RLink } from "react-router-dom";
-import { Box, Flex, Menu, MenuButton, Icon, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, Button, Link } from "@chakra-ui/react";
+import { Link as RLink } from "react-router-dom";
+import { Box, Flex, Menu, MenuButton, Icon, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, Button, Link, AccordionIcon, useDisclosure } from "@chakra-ui/react";
+import {CreateModal} from '../project/';
 
 const activeStyle = {
-    backgroundColor: 'brand.600',
-    color: 'white'
+    backgroundColor: 'purple.500',
+    cursor: 'pointer'
 }
 
-export function NavMenu({navSize, navSizeFn, projectsList ,icon, title, path}) {
-
-    const [ownProjects, projects] = projectsList;
+export function NavMenu({navSize, navSizeFn, projectsList ,icon, title}) {
 
     const NAV_CONDITION = (navSize === 'small');
+
+    const [ownProjects, projects] = projectsList;
     const [isOpen, setIsOpen] = useState(false);
+    const {isOpen:isModalOpen, onOpen, onClose} = useDisclosure();
 
     function onOpenMenu() {
         if(NAV_CONDITION && !isOpen) {
@@ -26,6 +28,9 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title, path}) {
     }
 
     return (
+        <>
+        <CreateModal isOpen={isModalOpen} onClose={onClose}/>
+        
         <Flex
             mt={30}
             flexDir='column'
@@ -33,14 +38,14 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title, path}) {
             align={NAV_CONDITION ? 'center' : 'flex-start'}
         >
 
+
         <Menu placement='right'>
-            <Link
-                    as={NavLink}
-                    to={path}
-                    _activeLink={activeStyle}
+            <Box
+                    as='div'
+                    sx={isOpen ? activeStyle : {cursor: 'pointer'}}
                     p={3}
                     borderRadius={8}
-                    _hover={{textDecoration: 'none', backgroundColor: 'brand.500', color: 'white'}}
+                    _hover={{textDecoration: 'none', backgroundColor: 'purple.400'}}
                     w={navSize === 'large' && '100%'}
                 onClick={onOpenMenu}
                 >
@@ -48,24 +53,26 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title, path}) {
                 w='100%' 
             >
                 <Flex>
-                    <Icon as={icon} fontSize='xl' color={'gray.800'} alignSelf='center'/>
+                    <Icon as={icon} fontSize='xl' color='gray.400' alignSelf='center'/>
                     <Text ml={5} fontSize={{base: 'sm', sm: 'sm', md: 'md', lg: 'lg'}} display={NAV_CONDITION ? 'none' : 'flex'}>{title}</Text>
                 </Flex>
             </MenuButton>
-            </Link>
+            </Box>
         </Menu>
 
         {
             (isOpen && navSize === 'large') &&
             <>
-                <Button colorScheme='secondary' p={{base: 1.5}} size={{base: 'sm', sm: 'sm', md: 'md', lg: 'lg'}} alignSelf='start' m={3}>Create New</Button>
+                <Button colorScheme='purple' size={{base: 'sm', lg: 'md'}} alignSelf='start' m={3} onClick={onOpen}>Create New</Button>
 
                 <Accordion w='100%' p={3} allowToggle>
                 <AccordionItem>
                     <h2>
-                        <AccordionButton _expanded={{bg: 'brand.600', color: 'white', borderRadius: '8px'}}>
+                        <AccordionButton _expanded={{bg: 'purple.400', borderRadius: '8px'}}>
                             <Box as='span' flex='1' textAlign='left' fontSize={{base: 'sm', sm: 'sm', md: 'md', lg: 'lg', xl: 'xl'}}>Own Projects</Box>
+                            <AccordionIcon/>
                         </AccordionButton>
+                        
                     </h2>
                     <AccordionPanel pb={4}>
                         {
@@ -78,8 +85,9 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title, path}) {
 
                 <AccordionItem>
                     <h2>
-                        <AccordionButton _expanded={{bg: 'brand.600', color: 'white', borderRadius: '8px'}}>
+                        <AccordionButton _expanded={{bg: 'purple.400', borderRadius: '8px'}}>
                             <Box as='span' flex='1' textAlign='left' fontSize={{base: 'sm', sm: 'sm', md: 'md', lg: 'lg', xl: 'xl'}}>Others Projects</Box>
+                            <AccordionIcon/>
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
@@ -95,5 +103,6 @@ export function NavMenu({navSize, navSizeFn, projectsList ,icon, title, path}) {
         }
 
         </Flex>
+        </>
     )
 }

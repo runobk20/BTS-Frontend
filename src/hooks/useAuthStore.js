@@ -48,7 +48,7 @@ export function useAuthStore() {
     }
 
     function startLogout() {
-        localStorage.clear();
+        localStorage.removeItem('token');
         dispatch(onLogout(null));
     }
 

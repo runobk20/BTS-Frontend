@@ -8,7 +8,7 @@ export function AuthLayout() {
 	return (
 		<Flex
 			h={`calc((${vh}px, 1vh) * 100)`}
-			bgGradient="linear(to-tr, secondary.400, secondary.500, brand.400, brand.500 ,brand.700)"
+			bgGradient="linear(to-tr, purple.300, purple.500, purple.800)"
 			justifyContent="center"
 			direction="column"
 		>

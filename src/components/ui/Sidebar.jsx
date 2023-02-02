@@ -4,6 +4,7 @@ import { NavItem } from "./NavItem";
 import { NavMenu } from "./NavMenu";
 import { FaArrowRight, FaBars, FaBell, FaBolt, FaHome, FaUser } from 'react-icons/fa';
 import { useAuthStore } from "../../hooks";
+import { ToggleTheme } from "./ToggleTheme";
 
 export function Sidebar() {
 
@@ -36,15 +37,17 @@ export function Sidebar() {
                 alignItems='flex-start'
                 as='nav'
             >
-                <IconButton
-                    alignSelf={NAV_CONDITION ? 'center' : 'flex-start'}
-                    fontSize={25}
-                    background='none'
-                    mt={5}
-                    _hover={{background: 'none'}}
-                    icon={<FaBars/>}
-                    onClick={onNavSizing}
-                />
+                <Flex align='center' w='100%' justify={NAV_CONDITION ? 'center' : 'start'} mt={4} flexDir={NAV_CONDITION ? 'column' : 'row'}>
+                    <IconButton
+                        alignSelf={NAV_CONDITION ? 'center' : 'flex-start'}
+                        fontSize={25}
+                        background='none'
+                        _hover={{background: 'none'}}
+                        icon={<FaBars/>}
+                        onClick={onNavSizing}
+                    />
+                    <ToggleTheme/>
+                </Flex>
 
                 <NavItem navSize={navSize} icon={FaHome} title='Dashboard' path='/'/>
                 <NavMenu navSize={navSize} navSizeFn={setNavSize} projectsList={[user.ownProjects, user.projects]} icon={FaBolt} title='Projects' path='projects'/>
@@ -79,9 +82,9 @@ export function Sidebar() {
                         mt={5}
                         _hover={{background: 'red.600'}}
                         icon={<FaArrowRight/>}
-                        onClick={() => {}}
+                        onClick={startLogout}
                     />
-                    : <Button rightIcon={<FaArrowRight/>} colorScheme='red' mt={5} size={{base: 'sm', md: 'md', lg: 'lg'}} onClick={startLogout}>Log out</Button>
+                    : <Button rightIcon={<FaArrowRight/>} colorScheme='danger' mt={5} size={{base: 'sm', md: 'md', lg: 'lg'}} onClick={startLogout}>Log out</Button>
                 }
 
             </Flex>

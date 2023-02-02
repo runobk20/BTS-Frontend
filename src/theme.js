@@ -1,21 +1,29 @@
 import { extendTheme } from "@chakra-ui/react"
 
 const colors = {
-    brand: {
-        100: '#D4C7FA',
-        200: '#B7A2F6',
-        300: '#9A7CF3',
-        400: '#7D57EF',
-        500: '#6F44EE',
-        600: '#6032EC',
-        700: '#3C11BB',
-        800: '#300E95',
-    },
-    secondary: {
-        400: '#3ACF91',
-        500: '#2CB67D',
-        600: '#249465'
+    danger: {
+        50: '#F7CACD',
+        100: '#F2A6AB',
+        200: '#EC838A',
+        300: '#EA7179',
+        400: '#E44E58',
+        500: '#DF2935',
+        600: '#C31D28',
+        700: '#A01821',
+        800: '#7C131A'
     }
 }
 
-export const theme = extendTheme({colors});
+const theme = {
+    colors,
+    fonts: {
+        heading: `'Lato', sans-serif`,
+        body: `"Karla", sans-serif`
+    },
+    config: {
+        initialColorMode: 'light',
+        useSystemColorMode: true
+    }
+}
+
+export default extendTheme(theme);
