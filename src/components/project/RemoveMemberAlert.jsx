@@ -1,11 +1,10 @@
 import { useEffect, useRef } from "react";
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useToast } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useToast } from "@chakra-ui/react";
 import { useProject } from "../../hooks";
 
-export function RemoveMemberAlert(props) {
+export function RemoveMemberAlert({isOpen, onClose, projectId, member}) {
     const toast = useToast();
     const cancelRef = useRef();
-    const {isOpen, onClose, projectId, member} = props;
     const {errorMsg, startRemoveMember} = useProject();
 
     function onRemoveMember() {
@@ -36,6 +35,7 @@ export function RemoveMemberAlert(props) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            <AlertDialogCloseButton/>
               Remove Member
             </AlertDialogHeader>
 

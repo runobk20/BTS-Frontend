@@ -13,17 +13,16 @@ export function AppLayout() {
     return (
         <Flex height={`calc((${vh}px, 1vh) * 100)`}>
             <DrawerSidebar isOpen={isOpen} onClose={onClose} drawerRef={btnRef}/>
-            <Flex align='center' position='absolute' top='0' left='0' zIndex='10' justify='center' mt='12px' flexDir='column'>
                 <IconButton
-                    alignSelf='center'
+                    aria-label="Open menu"
+                    position='absolute' top='2' left='2'
                     fontSize={25}
                     background='none'
                     _hover={{background: 'none'}}
                     icon={<FaBars/>}
                     onClick={() => onOpen(true)}
                 />
-            </Flex>
-            <Box flex='1' px={{base: '12', md: '16'}} py={5}>
+            <Box flex='1' px={{base: '12', md: '16'}} py={3}>
                 <Outlet/>
             </Box>
         </Flex>

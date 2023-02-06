@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuthStore, useProject } from "../hooks";
-import { Avatar, Box, Button, Card, CardBody, Divider, Flex, Grid, Heading, HStack, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
-import { DeleteAlert, Loader, MembersDisplay } from "../components";
+import { Avatar, Button, Card, CardBody, Divider, Flex, Grid, Heading, HStack, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
+import { DeleteProjectAlert, Loader, MembersDisplay } from "../components";
 import { BugsDisplay } from "../components/project/BugsDisplay";
+import { CreateBugModal } from "../components/bugs";
 
 export function ProjectPage() {
     const toast = useToast();
@@ -11,6 +12,7 @@ export function ProjectPage() {
     const {user} = useAuthStore();
     const {errorMsg, isLoading, project:fetchedProject, startGetProject} = useProject();
     const {isOpen, onOpen, onClose} = useDisclosure();
+    const {isOpen:newBugIsOpen, onOpen:onNewBugOpen, onClose:onNewBugClose} = useDisclosure();
     
     const {bugs, members, leader, ...project} = fetchedProject;
 
@@ -36,8 +38,9 @@ export function ProjectPage() {
     return(
         (fetchedProject) && (
             <>
+            <DeleteProjectAlert isOpen={isOpen} onClose={onClose} projectId={projectId}/>
+            <CreateBugModal isOpen={newBugIsOpen} onClose={onNewBugClose} projectId={projectId}/>
 
-            <DeleteAlert isOpen={isOpen} onClose={onClose} projectId={projectId}/>
                 <Grid templateColumns={{base: '1', md: '1fr 2fr'}} gap={6}>
                     <VStack alignItems='start' flexBasis='1'>
                     <Heading as='h2' mb={3}>{project.name}</Heading>
@@ -63,9 +66,12 @@ export function ProjectPage() {
                     <MembersDisplay projectMembers={members} isLeader={leader && user.uid === leader._id} projectId={projectId}/>
                     </VStack>
                     <Flex flexBasis='2' alignContent='start' flexDir='column'>
-                        <Heading mb={3}>Bugs</Heading>
+                        <HStack justifyContent='space-between' mb={3}>
+                            <Heading>Bugs</Heading>
+                            <Button colorScheme='purple' onClick={() => onNewBugOpen(true)}>New Bug</Button>
+                        </HStack>
                             
-                        <BugsDisplay bugs={bugs} isLeader={leader && user.uid === leader._id}/>
+                        <BugsDisplay bugs={bugs} isLeader={leader && user.uid === leader._id} projectMembers={members}/>
                     </Flex>
                 </Grid>
             </>

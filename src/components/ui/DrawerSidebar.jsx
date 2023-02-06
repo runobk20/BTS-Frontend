@@ -10,7 +10,7 @@ export function DrawerSidebar({isOpen, onClose, drawerRef}) {
 
     return (
         <Drawer 
-        size={{base: 'xs', md: 'sm', lg: 'lg'}} 
+        size={{base: 'xs', lg: 'md'}}
         as='nav' 
         isOpen={isOpen} onClose={onClose} lastFocusRef={drawerRef} 
         placement='left' 

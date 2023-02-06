@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useProject } from "../../hooks";
 import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text, useToast } from "@chakra-ui/react";
 
-export function AddMemberModal(props) {
-        const {isOpen, onClose, projectId} = props;
+export function AddMemberModal({isOpen, onClose, projectId}) {
         const [email, setEmail] = useState('');
         const {startAddMember, errorMsg} = useProject();
         const toast = useToast();

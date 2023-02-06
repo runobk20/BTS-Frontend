@@ -1,4 +1,5 @@
-import { extendTheme } from "@chakra-ui/react"
+import { extendTheme } from '@chakra-ui/react';
+import { mode } from '@chakra-ui/theme-tools';
 
 const colors = {
     danger: {
@@ -13,8 +14,7 @@ const colors = {
         800: '#7C131A'
     }
 }
-
-const theme = {
+export default extendTheme({
     colors,
     fonts: {
         heading: `'Lato', sans-serif`,
@@ -22,8 +22,14 @@ const theme = {
     },
     config: {
         initialColorMode: 'light',
-        useSystemColorMode: true
+        useSystemColorMode: true,
+        cssVarPrefix: 'wisteria'
+    },
+    styles: {
+        global: (props) => ({
+            body: {
+                bg: mode('gray.50', 'gray.800')(props)
+            }
+        })
     }
-}
-
-export default extendTheme(theme);
+});

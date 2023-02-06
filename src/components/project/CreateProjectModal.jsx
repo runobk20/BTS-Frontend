@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useProject } from "../../hooks";
 import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text, useToast } from "@chakra-ui/react";
 
-export function CreateModal(props) {
-        const {isOpen, onClose} = props;
+export function CreateProjectModal({isOpen, onClose}) {
         const [name, setName] = useState('');
         const [description, setDescription] = useState('');
         const {startCreateProject, errorMsg} = useProject();

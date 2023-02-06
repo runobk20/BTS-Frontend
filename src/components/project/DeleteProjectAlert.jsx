@@ -1,25 +1,15 @@
 import { useEffect, useRef } from "react";
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useToast } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useToast } from "@chakra-ui/react";
 import { useProject } from "../../hooks";
 
-export function DeleteAlert(props) {
+export function DeleteProjectAlert({isOpen, onClose, projectId}) {
     const {startDeleteProject, errorMsg} = useProject();
-    const {isOpen, onClose, projectId} = props;
     const cancelRef = useRef();
     const toast = useToast();
 
     function onDeleteProject() {
         startDeleteProject(projectId);
-
-        toast({
-          title: 'Success',
-          description: 'Project deleted, you are being redirected',
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-          variant: 'solid',
-          position: 'top-right'
-      })
+        onClose();
     }
 
     useEffect(() => {
@@ -43,6 +33,7 @@ export function DeleteAlert(props) {
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
+          <AlertDialogCloseButton/>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
               Delete Project
             </AlertDialogHeader>
@@ -52,12 +43,8 @@ export function DeleteAlert(props) {
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme='danger' onClick={onDeleteProject} ml={3}>
-                Delete
-              </Button>
+              <Button ref={cancelRef} onClick={onClose}>Cancel</Button>
+              <Button colorScheme='danger' onClick={onDeleteProject} ml={3}>Delete</Button>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>

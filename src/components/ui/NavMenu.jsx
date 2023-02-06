@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link as RLink } from "react-router-dom";
 import { Box, Flex, Menu, MenuButton, Icon, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, Button, Link, AccordionIcon, useDisclosure } from "@chakra-ui/react";
-import {CreateModal} from '../project/';
+import {CreateProjectModal} from '../project/';
 
 const activeStyle = {
     backgroundColor: 'purple.500',
@@ -20,7 +20,7 @@ export function NavMenu({projectsList ,icon, title}) {
 
     return (
         <>
-        <CreateModal isOpen={isModalOpen} onClose={onClose}/>
+        <CreateProjectModal isOpen={isModalOpen} onClose={onClose}/>
         
         <Flex
             mt={5}

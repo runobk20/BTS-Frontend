@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
-import { backendApi } from "../api";
+import backendApi from "../api/backendApi";
 
 export function useProject() {
 
@@ -60,6 +60,16 @@ export function useProject() {
         try {
 
             await backendApi.delete(`/projects/${id}`);
+            toast({
+                title: 'Success',
+                description: 'Project deleted, you are being redirected',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                variant: 'solid',
+                position: 'top-right'
+            })
+
             setTimeout(() => {
                 navigate('/');
             }, 3000)
@@ -81,7 +91,7 @@ export function useProject() {
                 title: 'Success',
                 description: 'User added to project',
                 status: 'success',
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 variant: 'solid',
                 position: 'top-right'
@@ -104,7 +114,7 @@ export function useProject() {
                 title: 'Success',
                 description: 'User removed from project',
                 status: 'success',
-                duration: 5000,
+                duration: 3000,
                 isClosable: true,
                 variant: 'solid',
                 position: 'top-right'

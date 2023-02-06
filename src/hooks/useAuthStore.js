@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { cleanErrorMsg, onChecking, onLogin, onLogout } from '../store';
-import { backendApi } from '../api';
+import backendApi from '../api/backendApi';
 
 
 export function useAuthStore() {
     const dispatch = useDispatch();
     const { isLogged, user, errorMsg } = useSelector(state => state.auth);
     const navigate = useNavigate();
+    const path = localStorage.getItem('lastPath') || '/';
 
     async function startLogin({email, password}) {
         dispatch(onChecking());
@@ -18,7 +19,9 @@ export function useAuthStore() {
             const {token, ok, ...payload} = data;
             localStorage.setItem('token', token);
             dispatch(onLogin(payload));
-            navigate('/');
+            navigate(path, {
+                replace: true
+            });
 
         } catch (error) {
             const errMsg = error.response.data.msg || 'Something went wrong!';
@@ -50,7 +53,6 @@ export function useAuthStore() {
     function startLogout() {
         localStorage.removeItem('token');
         dispatch(onLogout(null));
-        window.location.reload();
     }
 
     async function checkAuthToken() {
@@ -66,7 +68,8 @@ export function useAuthStore() {
             dispatch(onLogin(payload));
 
         } catch (error) {
-            const errMsg = error?.response.data.msg || 'Something went wrong';
+            const errMsg = error?.response.data?.msg || 'Something went wrong';
+            localStorage.removeItem('token');
             dispatch(onLogout(errMsg));
             setTimeout(() => {
                 dispatch(cleanErrorMsg());

@@ -5,7 +5,7 @@ export function SelectField({label, options = [], ...props}) {
     const [field, meta] = useField(props);
 
     return (
-        <FormControl mb={4} isInvalid={meta.error && meta.touched}>
+        <FormControl mb={3} isInvalid={meta.error && meta.touched}>
             <FormLabel>{label}</FormLabel>
                 <Field as={Select} {...field} {...props} size={{base: 'md', lg: 'lg'}} focusBorderColor='purple.300'>
                     {

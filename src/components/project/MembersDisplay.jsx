@@ -28,7 +28,7 @@ export function MembersDisplay({projectMembers = [], isLeader, projectId}) {
                 ? (
                     <>
                         <TableContainer>
-                            <Table size='sm'>
+                            <Table size='sm' variant='striped' colorScheme='blackAlpha'>
                                 <Thead>
                                     <Tr>
                                         <Th>Name</Th>
@@ -40,8 +40,14 @@ export function MembersDisplay({projectMembers = [], isLeader, projectId}) {
                                     projectMembers && (
                                         projectMembers.map(member => {
                                             return (
-                                                <Tr key={member._id}>
-                                                    <Td _hover={{background: 'purple.500', cursor: 'pointer'}} onClick={() => setSelectedMember(member)}>{member.name}</Td>
+                                                <Tr 
+                                                    borderX='2px solid' borderColor='transparent'
+                                                    _hover={{
+                                                    cursor: 'pointer', borderX: '2px solid', 
+                                                    borderColor: 'purple.500'}} key={member._id}
+                                                    onClick={() => setSelectedMember(member)}
+                                                >
+                                                    <Td>{member.name}</Td>
                                                     <Td>{member.role}</Td>
                                                 </Tr>
                                                 )

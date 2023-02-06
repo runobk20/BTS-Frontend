@@ -8,7 +8,7 @@ export function PublicRoutes() {
             <Route path='/' element={<AuthLayout/>}>
                 <Route index element={<LoginPage/>}/>
                 <Route path='/signup' element={<SignUpPage/>}/>
-                <Route path="*" element={<Navigate to={'/'}/>}/>
+                <Route path="/*" element={<Navigate to={'/'}/>}/>
             </Route>
         </Routes>
     )

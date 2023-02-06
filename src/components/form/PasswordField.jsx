@@ -8,7 +8,7 @@ export function PasswordField({label, ...props}) {
     const handleShowPassword = () => setShow(!show);
 
     return (
-        <FormControl mb={4} isInvalid={meta.error && meta.touched}>
+        <FormControl mb={3} isInvalid={meta.error && meta.touched}>
             <FormLabel>{label}</FormLabel>
             <InputGroup>
                 <Field as={Input} {...props} {...field} type={show ? 'text' : 'password'} size={{base: 'md', lg: 'lg'}} focusBorderColor='purple.300'/>

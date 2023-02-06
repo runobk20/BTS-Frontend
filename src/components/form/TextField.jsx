@@ -5,7 +5,7 @@ export function TextField({label, ...props}) {
     const [field, meta] = useField(props);
 
     return (
-        <FormControl mb={4} isInvalid={meta.error && meta.touched}>
+        <FormControl mb={3} isInvalid={meta.error && meta.touched}>
             <FormLabel>{label}</FormLabel>
             <Field as={Input} {...field} {...props} focusBorderColor='purple.300' size={{base: 'sm', lg: 'lg'}}/>
             <FormErrorMessage>{meta.error}</FormErrorMessage>

@@ -20,8 +20,16 @@ export function Router() {
         <>
             {
                 (isLogged === 'authenticated')
-                    ? <PrivateRoutes/>
-                    : <PublicRoutes/>
+                    ? (
+                        <>
+                            <PrivateRoutes/>
+                        </>
+                      )
+                    : (
+                        <>
+                            <PublicRoutes/>
+                        </>  
+                      )
             }
         </>
     )
