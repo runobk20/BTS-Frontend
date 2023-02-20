@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore, useBugStore } from "../../hooks";
-import { Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Grid, Heading, Tag, TagLabel, Text, useDisclosure } from "@chakra-ui/react";
-import { attColors, tagColors, tagStyle, formatDate } from '../../data/bugData';
+import { onViewBug, onOpenDeleteBug, onOpenAssignBug } from "../../helpers";
+import { attColors, tagColors, tagStyle, formatDate, statusOptions } from '../../data/bugData';
+import { SearchBar, FilterInput } from "../ui";
 import { DeleteBugAlert } from '../bugs/DeleteBugAlert';
 import { AssignBugModal } from "../bugs/AssignBugModal";
+import { Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Grid, Heading, Spacer, Tag, TagLabel, Text, useDisclosure } from "@chakra-ui/react";
 
 export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
     const navigate = useNavigate();
@@ -12,19 +15,39 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
     const {isOpen, onClose, onOpen} = useDisclosure();
     const {isOpen:isOpenAssign, onClose:onCloseAssign, onOpen:onOpenAssign} = useDisclosure();
 
-    function onViewBug(bug) {
-        setActiveBug(bug);
-        navigate(`/projects/${bug.project}/bug/${bug._id}`);
+    const [searchValue, setSearchValue] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+    const [bugList, setBugList] = useState(bugs);
+
+    function handleChange(e) {
+        setSearchValue(e.target.value);
+        filterBugs(e.target.value);
     }
 
-    function onOpenDeleteBug(bug) {
-        setActiveBug(bug);
-        onOpen(true);
+    function filterByState(stateValue) {
+        if(stateValue === '') {
+            return setBugList(bugs);
+        }
+       
+        const filteredBugs = bugs.filter(bug => {
+            if(bug.status.includes(stateValue)) {
+                return bug;
+            }
+        });
+        setBugList(filteredBugs);
     }
 
-    function onOpenAssignBug(bug) {
-        setActiveBug(bug);
-        onOpenAssign(true);
+    function filterBugs(searchInput) {
+        if(!searchInput) {
+            return setBugList(bugs);
+        }
+
+        const filteredBugs = bugList.filter(bug => {
+            if(bug.title.toLowerCase().includes(searchInput.toLowerCase())) {
+                return bug;
+            }
+        })
+        setBugList(filteredBugs);
     }
 
     return (
@@ -34,20 +57,22 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
             <DeleteBugAlert isOpen={isOpen} onClose={onClose}/>
             <AssignBugModal isOpen={isOpenAssign} onClose={onCloseAssign} projectMembers={projectMembers}/>
             <Grid gridTemplateColumns={{base: '1fr', xl: 'repeat(2, 1fr)'}} gridColumnGap={4} gridRowGap={4}>
+            <SearchBar value={searchValue} onChangeFn={handleChange}/>
+            <FilterInput label='Filter by status' value={statusFilter}  defaultValue='All' options={statusOptions} onChangeFn={e => setStatusFilter(e.target.value)} filterFn={filterByState.bind(null, statusFilter)}/>
                 {
-                bugs.map(bug => {
+                bugList.map(bug => {
                     const bugDate = formatDate(bug.date);
 
                     return (
                         <Card key={bug._id}>
                         <CardHeader>
-                            <Flex justify='space-between' gap={3} mb={1}>
+                            <Flex flexDir={{base: 'column', lg:'row'}} justify='space-between' gap={{base: 2, lg: 3}} mb={1}>
                                 <Text color='gray.500'>Id: {bug._id}</Text>
                                 <Text color='gray.500'>{bugDate.date}</Text>
                             </Flex>
-                            <Flex flexDir='row' justifyContent='space-between'>
-                                <Heading fontSize={{base: '16px', md: '18px', lg: '20px'}}>{bug.title}</Heading>
-                                <Tag colorScheme={tagColors[bug.status]} style={tagStyle}><TagLabel>{bug.status}</TagLabel></Tag>
+                            <Flex flexDir={{base: 'column', md: 'row'}} gap={{base: 2, md: 0}} justifyContent='space-between'>
+                                <Heading fontSize={{base: '20px', lg: '22px'}}>{bug.title}</Heading>
+                                <Tag colorScheme={tagColors[bug.status]} style={tagStyle} maxW='50%'><TagLabel>{bug.status}</TagLabel></Tag>
                             </Flex>
                         </CardHeader>
                         <CardBody display='flex' justifyContent='space-between'>
@@ -63,13 +88,15 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
                         <CardFooter>
                             <Flex gap={3} w='100%' justifyContent='space-between'>
                                 {
-                                    (isLeader || user.uid === bug.user._id ) && <Button colorScheme='red' onClick={onOpenDeleteBug.bind(null, bug)}>Delete</Button>
+                                    (isLeader || user.uid === bug.user._id ) 
+                                    ? <Button colorScheme='red' onClick={onOpenDeleteBug.bind(null, bug, setActiveBug, onOpen)}>Delete</Button>
+                                    : <Spacer/>
                                 }
                                 <Flex gap={3}>
                                 {
-                                    isLeader && <Button onClick={onOpenAssignBug.bind(null, bug)}>Assign</Button>
+                                    isLeader && <Button onClick={onOpenAssignBug.bind(null, bug, setActiveBug, onOpenAssign)}>Assign</Button>
                                 }
-                                <Button colorScheme='purple' onClick={onViewBug.bind(null, bug)}>View</Button>
+                                <Button colorScheme='purple' onClick={onViewBug.bind(null, bug, setActiveBug, navigate)}>View</Button>
                                 </Flex>
                             </Flex>
                         </CardFooter>

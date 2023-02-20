@@ -34,7 +34,6 @@ export function DrawerSidebar({isOpen, onClose, drawerRef}) {
                     <NavItem icon={FaHome} title='Dashboard' path='/'/>
                     <NavMenu projectsList={[user.ownProjects, user.projects]} icon={FaBolt} title='Projects' path='projects'/>
                     <NavItem icon={FaUser} title='My Profile' path='myProfile'/>
-                    <NavItem icon={FaBell} title='Notifications' path='notifications'/>
 
                     </Flex>
                 </DrawerBody>

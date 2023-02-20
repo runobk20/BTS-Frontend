@@ -69,6 +69,11 @@ export function LoginPage() {
                         <Text my={4}>Don't have an account?</Text>
                         <Link as={RLink} to='signup' color='purple.500' fontWeight='bold'>Create one!</Link>
                     </HStack>
+                    {
+                        (errorMsg) && (
+                            <p>{errorMsg}</p>
+                        )
+                    }
                 </Flex>
                 </VStack>
         )}

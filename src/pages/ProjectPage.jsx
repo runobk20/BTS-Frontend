@@ -13,8 +13,10 @@ export function ProjectPage() {
     const {errorMsg, isLoading, project:fetchedProject, startGetProject} = useProject();
     const {isOpen, onOpen, onClose} = useDisclosure();
     const {isOpen:newBugIsOpen, onOpen:onNewBugOpen, onClose:onNewBugClose} = useDisclosure();
+
     
     const {bugs, members, leader, ...project} = fetchedProject;
+
 
     useEffect(() => {
         startGetProject(projectId);
@@ -70,7 +72,7 @@ export function ProjectPage() {
                             <Heading>Bugs</Heading>
                             <Button colorScheme='purple' onClick={() => onNewBugOpen(true)}>New Bug</Button>
                         </HStack>
-                            
+
                         <BugsDisplay bugs={bugs} isLeader={leader && user.uid === leader._id} projectMembers={members}/>
                     </Flex>
                 </Grid>

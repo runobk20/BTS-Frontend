@@ -5,7 +5,7 @@ export const tagColors = {
     'Resolved': 'green',
     'Closed': 'teal',
     'Deferred': 'red',
-    'ReOpen': 'blue',
+    'Re Open': 'cyan',
     'Duplicated': 'orange'
 }
 
@@ -40,6 +40,7 @@ export const severityOptions = [
 ];
 
 export const statusOptions = [
+    {new: 'New'},
     {inProgress: 'In Progress'},
     {pending: 'Pending'},
     {resolved: 'Resolved'},

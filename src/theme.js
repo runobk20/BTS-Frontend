@@ -28,7 +28,7 @@ export default extendTheme({
     styles: {
         global: (props) => ({
             body: {
-                bg: mode('gray.50', 'gray.800')(props)
+                bg: mode('gray.50', 'gray.800')(props),
             }
         })
     }

@@ -11,18 +11,19 @@ export function AppLayout() {
     const btnRef = useRef();
 
     return (
-        <Flex height={`calc((${vh}px, 1vh) * 100)`}>
+        <Flex height={`calc((${vh}px, 1vh) * 100)`} overflowX='hidden'>
             <DrawerSidebar isOpen={isOpen} onClose={onClose} drawerRef={btnRef}/>
                 <IconButton
                     aria-label="Open menu"
                     position='absolute' top='2' left='2'
                     fontSize={25}
+                    zIndex={10}
                     background='none'
                     _hover={{background: 'none'}}
                     icon={<FaBars/>}
                     onClick={() => onOpen(true)}
                 />
-            <Box flex='1' px={{base: '12', md: '16'}} py={3}>
+            <Box flex='1' px={{base: '6', sm: '12', md: '16'}} py={{base: '12'}}>
                 <Outlet/>
             </Box>
         </Flex>

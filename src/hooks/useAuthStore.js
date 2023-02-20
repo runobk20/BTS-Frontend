@@ -18,6 +18,7 @@ export function useAuthStore() {
             const {data} = await backendApi.post('/auth/login', {email, password});
             const {token, ok, ...payload} = data;
             localStorage.setItem('token', token);
+            console.log(payload)
             dispatch(onLogin(payload));
             navigate(path, {
                 replace: true

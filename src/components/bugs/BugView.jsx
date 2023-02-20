@@ -19,6 +19,7 @@ export function BugView() {
 
     useEffect(() => {
         if(!activeBug) {
+            console.log('getting bug')
             startGetBug(bugId);
         }
     }, []);
@@ -40,11 +41,11 @@ export function BugView() {
             <>
             <IconButton
                     aria-label="Navigate back to project"
-                    position='absolute' top='12' left='2'
+                    position='absolute' top='2' left='12'
                     fontSize={20}
                     background='none'
                     icon={<FaArrowLeft/>}
-                    onClick={() => navigate(`/projects/${bug.project}`)}
+                    onClick={() => navigate(`/projects/${bug.project._id}`)}
                 />
             <UpdateBugModal isOpen={isOpen} onClose={onClose} bug={bug}/>
             <Grid templateColumns={{base: '1', xl: '2fr 1fr'}} gap={6}>
@@ -52,12 +53,17 @@ export function BugView() {
                     <Card w='100%'>
                     <CardBody>
                     <Flex gap={3} justify='space-between'>
-                        <Heading as='h2' mb={6}>{bug.title}</Heading>
-                        <Button colorScheme='purple' onClick={() => onOpen(true)}>Edit</Button>
+                        <Flex flexDir='column' gap={3}>
+                            <Heading as='h2'>{bug.title}</Heading>
+                            <Heading as='h3' fontSize={20} mb={6}>Project: {bug.project.name}</Heading>
+                        </Flex>
+                        {
+                            (user.uid === bug.user._id || user.uid === bug.project.leader) && <Button colorScheme='purple' onClick={() => onOpen(true)}>Edit</Button>
+                        }
                     </Flex>
                     <HStack w={{base: '100%', xl: '70%'}} gap={3} justify='space-between'>
                         <Flex flexDir='column' gap={2} justify='start'>
-                        <Box><Tag colorScheme={tagColors[bug.status]} style={tagStyle}><TagLabel>{bug.status}</TagLabel></Tag></Box>
+                        <Text>Status: <Tag colorScheme={tagColors[bug.status]} style={tagStyle}><TagLabel>{bug.status}</TagLabel></Tag></Text>
                         <Text>Priority: <Tag colorScheme={attColors[bug.priority]}>{bug.priority}</Tag></Text>
                         <Text>Severity: <Tag colorScheme={attColors[bug.severity]}>{bug.severity}</Tag></Text>
                         </Flex>
