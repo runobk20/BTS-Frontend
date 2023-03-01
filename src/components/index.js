@@ -4,3 +4,4 @@ export * from './project/index';
 export * from './charts/index';
 export * from './dashboard';
 export * from './comments';
+export * from './bugs';

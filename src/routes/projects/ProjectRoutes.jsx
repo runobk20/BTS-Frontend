@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { BugView } from "../../components/bugs/BugView";
+import { BugView } from "../../components/";
 import { ProjectPage } from "../../pages";
 
 export function ProjectRoutes() {
