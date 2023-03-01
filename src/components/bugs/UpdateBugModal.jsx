@@ -45,7 +45,7 @@ export function UpdateBugModal({isOpen, onClose, bug}) {
                 expectedResult: Yup.string().required('The expected result is required')
             })}
             onSubmit={(values) => {
-                startUpdateBug(bug._id, values);
+                startUpdateBug(bug.id || bug._id, values);
                 onClose();
             }}
         >

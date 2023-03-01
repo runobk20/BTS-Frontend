@@ -87,7 +87,6 @@ export function useBugStore() {
     async function startUpdateBug(bugId, updatedData) {
 
         try {
-
             await backendApi.put(`bugs/${bugId}`, updatedData);
             toast({
                 title: 'Bug updated',
@@ -102,14 +101,14 @@ export function useBugStore() {
             setTimeout(() => {
                 window.location.reload();
             }, 3000);
+
         } catch (error) {
             const errMsg = error.response?.data.msg || 'Something went wrong';
             dispatch(onError(errMsg));
             setTimeout(() => {
-                dispatch(onCleanError(null));
+                dispatch(onCleanError());
             }, 200);
         }
-
     }
 
     async function startAssignMember(bugId, member) {
@@ -138,7 +137,58 @@ export function useBugStore() {
                 dispatch(onCleanError(null));
             }, 200);
         }
+    }
 
+    async function startAddComment(bugId, comment) {
+
+        try {
+            await backendApi.post('comments', {bugId, comment});
+            toast({
+                title: 'Comment added',
+                description: 'Thank you for your contribution...',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                variant: 'solid',
+                position: 'top-right'
+            });
+
+        } catch (error) {
+            const errMsg = error.response?.data.msg || 'Something went wrong';
+            dispatch(onError(errMsg));
+            setTimeout(() => {
+                dispatch(onCleanError(null));
+            }, 200);
+        }
+    }
+
+    async function startDeleteComment(comId, comCreator, comBug) {
+        try {
+            await backendApi.delete('comments/delete', {
+                data: {
+                        commentId: comId,
+                        commentCreator: comCreator,
+                        commentBug: comBug                    
+                }
+            });
+
+            toast({
+                title: 'Comment deleted',
+                description: 'This comment would not be showed next time...',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                variant: 'solid',
+                position: 'top-right'
+            });
+            
+        } catch (error) {
+            const errMsg = error.response?.data.msg || 'Something went wrong';
+            dispatch(onError(errMsg));
+            setTimeout(() => {
+                dispatch(onCleanError(null));
+            }, 200);
+        }
     }
 
     return {
@@ -153,6 +203,8 @@ export function useBugStore() {
         setActiveBug,
         startGetBug,
         startUpdateBug,
-        startAssignMember
+        startAssignMember,
+        startAddComment,
+        startDeleteComment
     }
 }

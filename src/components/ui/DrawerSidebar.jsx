@@ -1,6 +1,6 @@
 import { useAuthStore } from "../../hooks";
 import { Avatar, Button, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Heading, Text } from "@chakra-ui/react";
-import { FaArrowRight, FaBell, FaBolt, FaHome, FaUser } from "react-icons/fa";
+import { FaArrowRight, FaBolt, FaHome } from "react-icons/fa";
 import { NavItem } from "./NavItem";
 import { NavMenu } from "./NavMenu";
 import { ToggleTheme } from "./ToggleTheme";
@@ -33,7 +33,6 @@ export function DrawerSidebar({isOpen, onClose, drawerRef}) {
 
                     <NavItem icon={FaHome} title='Dashboard' path='/'/>
                     <NavMenu projectsList={[user.ownProjects, user.projects]} icon={FaBolt} title='Projects' path='projects'/>
-                    <NavItem icon={FaUser} title='My Profile' path='myProfile'/>
 
                     </Flex>
                 </DrawerBody>

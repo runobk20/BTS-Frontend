@@ -50,9 +50,10 @@ export function DashboardPage() {
     <>
         <Heading mb={3}>Welcome {user.name}!</Heading>
         
-        <Flex gap={6}>
-            <Flex flexDir='column' gap={3}>
-                <Card>
+        <Flex gap={6} flexDir={{base: 'column', xl: 'row'}}>
+            <Flex flexDir={{base:'column', '2xl': 'row'}} gap={3}>
+            <Flex flexDir='column' gap={3} alignItems={{base:'center', lg:'initial'}}>
+                <Card w={{base: '280px', sm: '400px', md: '700px', lg: 'auto'}}>
                 <CardBody>
                 <Stat>
                     <StatLabel>Total bugs</StatLabel>
@@ -62,7 +63,7 @@ export function DashboardPage() {
                 </CardBody>
                 </Card>
 
-                <Card>
+                <Card w={{base: '280px', sm: '400px', md: '700px', lg: 'auto'}}>
                     <CardBody>
                         Bugs by status
                         <DoughnutChart chartData={statusChart}/>
@@ -70,21 +71,23 @@ export function DashboardPage() {
                 </Card>
             </Flex>
 
-            <Flex flexDir='column' gap={3}>
-                <Card>
+            <Flex flexDir='column' gap={3} alignItems={{base:'center', lg:'initial'}}>
+                <Card w={{base: '280px', sm: '400px', md: '700px', lg: 'auto'}}>
                     <CardHeader pb='0'>Bugs by priority</CardHeader>
                     <CardBody py='0'>
                         <BarChart chartData={priorityChart}/>
                     </CardBody>
                 </Card>
 
-                <Card>
+                <Card w={{base: '280px', sm: '400px', md: '700px', lg: 'auto'}}>
                     <CardHeader pb='0'>Bugs by severity</CardHeader>
                     <CardBody py='0'>
                         <BarChart chartData={severityChart}/>
                     </CardBody>
                 </Card>
             </Flex>
+        </Flex>
+
             <Card flex='2' px={6} py={3}>
                 <BugsTable bugs={bugs}/>
             </Card>

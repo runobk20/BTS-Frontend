@@ -5,6 +5,7 @@ import { RemoveMemberAlert } from "./RemoveMemberAlert";
 
 export function MembersDisplay({projectMembers = [], isLeader, projectId}) {
 
+    const windowWidth = window.innerWidth;
     const [selectedMember, setSelectedMember] = useState('');
     const {isOpen:remMemberIsOpen, onOpen:remMemberOpen, onClose:remMemberClose} = useDisclosure();
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -47,7 +48,7 @@ export function MembersDisplay({projectMembers = [], isLeader, projectId}) {
                                                     borderColor: 'purple.500'}} key={member._id}
                                                     onClick={() => setSelectedMember(member)}
                                                 >
-                                                    <Td>{member.name}</Td>
+                                                    <Td title={member.name}>{(windowWidth < 480 && member.name.length > 12) ? member.name.slice(0, 11).concat('...') : member.name}</Td>
                                                     <Td>{member.role}</Td>
                                                 </Tr>
                                                 )

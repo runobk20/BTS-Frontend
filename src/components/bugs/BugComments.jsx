@@ -1,16 +1,27 @@
-import { Card, CardBody, Flex, Heading, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { Box, Card, CardBody, Flex, Heading, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { CommentView, CreateComment } from "../comments";
 
-export function BugComments({comments}) {
-
+export function BugComments({comments, column}) {
     return (
-        (comments.length > 0)
+        (comments) &&
+        <Box gridColumn={column}>
+        {(comments.length > 0)
         ? (
-            <></>
+            <>
+            <CreateComment/>
+                {
+                    comments.map(comment => {
+                        return <CommentView comment={comment} key={comment._id}/>
+                    })
+                }
+
+            </>
         )
         : (
             <Flex flexDir='column' gap={6}>
                 <Heading>This bug have no comments yet</Heading>
 
+                <CreateComment/>
                 <Flex flexDir='column' gap={3}>
                     <Card>
                     <CardBody>
@@ -27,5 +38,7 @@ export function BugComments({comments}) {
                 </Flex>
             </Flex>
         )
+        }
+        </Box>
     )
 }

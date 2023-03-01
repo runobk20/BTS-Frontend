@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Grid, Heading, Spacer, Tag, TagLabel, Text, useDisclosure } from "@chakra-ui/react";
 import { useAuthStore, useBugStore } from "../../hooks";
 import { onViewBug, onOpenDeleteBug, onOpenAssignBug } from "../../helpers";
-import { attColors, tagColors, tagStyle, formatDate, statusOptions } from '../../data/bugData';
 import { SearchBar, FilterInput } from "../ui";
 import { DeleteBugAlert } from '../bugs/DeleteBugAlert';
 import { AssignBugModal } from "../bugs/AssignBugModal";
-import { Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Grid, Heading, Spacer, Tag, TagLabel, Text, useDisclosure } from "@chakra-ui/react";
+import { attColors, tagColors, tagStyle, formatDate, statusOptions, priorityOptions, severityOptions } from '../../data/bugData';
 
 export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
     const navigate = useNavigate();
@@ -17,6 +17,8 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
 
     const [searchValue, setSearchValue] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
+    const [priorityFilter, setPriorityFilter] = useState('');
+    const [severityFilter, setSeverityFilter] = useState('');
     const [bugList, setBugList] = useState(bugs);
 
     function handleChange(e) {
@@ -24,13 +26,13 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
         filterBugs(e.target.value);
     }
 
-    function filterByState(stateValue) {
+    function filterBugsBy(stateValue, bugsArr, filterParam) {
         if(stateValue === '') {
-            return setBugList(bugs);
+            return setBugList(bugsArr);
         }
        
-        const filteredBugs = bugs.filter(bug => {
-            if(bug.status.includes(stateValue)) {
+        const filteredBugs = bugsArr.filter(bug => {
+            if(bug[filterParam].includes(stateValue)) {
                 return bug;
             }
         });
@@ -56,9 +58,17 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
         (   <>
             <DeleteBugAlert isOpen={isOpen} onClose={onClose}/>
             <AssignBugModal isOpen={isOpenAssign} onClose={onCloseAssign} projectMembers={projectMembers}/>
+            <Flex flexDir='column' gap={3} mb={3}>
+            <Box display='flex' flexDir={{base: 'column', lg: 'row'}} gap={3}>
+                <SearchBar value={searchValue} onChangeFn={handleChange}/>
+                <FilterInput label='Filter by status' value={statusFilter}  defaultValue='All' options={statusOptions} onChangeFn={e => setStatusFilter(e.target.value)} filterFn={filterBugsBy.bind(null, statusFilter, bugs, 'status')}/>
+            </Box>
+            <Box display='flex' flexDir={{base: 'column', lg: 'row'}} gap={3}>
+                <FilterInput label='Filter by priority' value={priorityFilter}  defaultValue='All' options={priorityOptions} onChangeFn={e => setPriorityFilter(e.target.value)} filterFn={filterBugsBy.bind(null, priorityFilter, bugs, 'priority')}/>
+                <FilterInput label='Filter by severity' value={severityFilter}  defaultValue='All' options={severityOptions} onChangeFn={e => setSeverityFilter(e.target.value)} filterFn={filterBugsBy.bind(null, severityFilter, bugs, 'severity')}/>
+            </Box>
+            </Flex>
             <Grid gridTemplateColumns={{base: '1fr', xl: 'repeat(2, 1fr)'}} gridColumnGap={4} gridRowGap={4}>
-            <SearchBar value={searchValue} onChangeFn={handleChange}/>
-            <FilterInput label='Filter by status' value={statusFilter}  defaultValue='All' options={statusOptions} onChangeFn={e => setStatusFilter(e.target.value)} filterFn={filterByState.bind(null, statusFilter)}/>
                 {
                 bugList.map(bug => {
                     const bugDate = formatDate(bug.date);

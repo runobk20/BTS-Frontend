@@ -4,10 +4,10 @@ import {Chart as Chartjs} from "chart.js/auto";
 
 export function DoughnutChart({chartData}) {
     return (
-        <Center h={400}>
+        <Center h={{base: '250px', lg: '400px'}}>
             <Doughnut data={chartData} options={{
                 responsive: true,
-                mantainAspectRatio: false
+                mantainAspectRatio: true
             }}/>
         </Center>
     )

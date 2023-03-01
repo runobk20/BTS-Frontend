@@ -19,7 +19,6 @@ export function BugView() {
 
     useEffect(() => {
         if(!activeBug) {
-            console.log('getting bug')
             startGetBug(bugId);
         }
     }, []);
@@ -104,7 +103,7 @@ export function BugView() {
 
                 </VStack>
 
-                <BugComments comments={bug.comments}/>
+                <BugComments comments={bug.comments} column={{base: '1', xl: '2'}}/>
             </Grid>
             </>
         )

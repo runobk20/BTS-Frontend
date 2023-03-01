@@ -20,7 +20,6 @@ export function useProject() {
             setisLoading(false);
 
         } catch (error) {
-            console.log(error)
             const errMsg = error.response?.data.msg || 'Something went wrong';
             setErrorMsg(errMsg);
             setTimeout(() => {
