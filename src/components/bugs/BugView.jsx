@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAuthStore, useBugStore } from "../../hooks";
-import { Box, Button, Card, CardBody, Divider, Flex, Grid, Heading, HStack, IconButton, Tag, TagLabel, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, CardFooter, Divider, Flex, Grid, Heading, HStack, IconButton, Spacer, Tag, TagLabel, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
 import { attColors, tagColors, tagStyle, formatDate } from '../../data/bugData';
 import { BugComments } from "./BugComments";
 import { FaArrowLeft } from "react-icons/fa"
@@ -38,42 +38,66 @@ export function BugView() {
     return (
         (bug) && (
             <>
-            <IconButton
-                    aria-label="Navigate back to project"
-                    position='absolute' top='2' left='12'
-                    fontSize={20}
-                    background='none'
-                    icon={<FaArrowLeft/>}
-                    onClick={() => navigate(`/projects/${bug.project._id}`)}
-                />
             <UpdateBugModal isOpen={isOpen} onClose={onClose} bug={bug}/>
-            <Grid templateColumns={{base: '1', xl: '2fr 1fr'}} gap={6}>
+            <Grid templateColumns={{base: '1', lg: '2fr 1fr'}} gap={6}>
                 <VStack alignItems='start' spacing={8}>
+                
                     <Card w='100%'>
                     <CardBody>
-                    <Flex gap={3} justify='space-between'>
+                    <Flex gap={3} justify='space-between' alignItems='center'>
                         <Flex flexDir='column' gap={3}>
-                            <Heading as='h2'>{bug.title}</Heading>
-                            <Heading as='h3' fontSize={20} mb={6}>Project: {bug.project.name}</Heading>
+                            <Flex gap={3} alignItems='center'>
+                                <IconButton
+                                    display='block'
+                                    aria-label="Navigate back to project"
+                                    fontSize={20}
+                                    background='none'
+                                    _hover={{bg: 'none'}}
+                                    icon={<FaArrowLeft/>}
+                                    onClick={() => navigate(`/projects/${bug.project._id}`)}
+                                />
+                                <Heading as='h2'>{bug.title}</Heading>
+                            </Flex>
+                            <Heading as='h3' fontSize={20} mb={3} color='gray.500'>{bug.project.name}</Heading>
                         </Flex>
-                        {
-                            (user.uid === bug.user._id || user.uid === bug.project.leader) && <Button colorScheme='purple' onClick={() => onOpen(true)}>Edit</Button>
-                        }
                     </Flex>
                     <HStack w={{base: '100%', xl: '70%'}} gap={3} justify='space-between'>
-                        <Flex flexDir='column' gap={2} justify='start'>
-                        <Text>Status: <Tag colorScheme={tagColors[bug.status]} style={tagStyle}><TagLabel>{bug.status}</TagLabel></Tag></Text>
-                        <Text>Priority: <Tag colorScheme={attColors[bug.priority]}>{bug.priority}</Tag></Text>
-                        <Text>Severity: <Tag colorScheme={attColors[bug.severity]}>{bug.severity}</Tag></Text>
+                        <Flex flexDir='column' gap={3} justify='start'>
+                            <Tag maxW='100px' colorScheme={tagColors[bug.status]} style={tagStyle}><TagLabel>{bug.status}</TagLabel></Tag>
+                            
+                            <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between' gap={{base: 0, lg: 3}}>
+                                <Text>Priority</Text>
+                                <Spacer/>
+                                <Tag colorScheme={attColors[bug.priority]}>{bug.priority}</Tag>
+                            </Flex>
+                            <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between'>
+                                <Text>Severity</Text>
+                                <Spacer/>
+                                <Tag colorScheme={attColors[bug.severity]}>{bug.severity}</Tag>
+                            </Flex>
                         </Flex>
 
                         <Flex flexDir='column' gap={3} justify='start'>
-                        <Text>Created on: <Text as='span' color='gray.500'>{bugDate.date}</Text></Text>
-                        <Text>By: <Text as='span' color='gray.500'>{bug.user.name}</Text></Text>
-                        <Text>Assigned to: <Text as='span' color='gray.500'>{bug.assignedTo?.name || 'Not assigned yet'}</Text></Text>
+                            <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between' gap={{base: 1, lg: 3}}>
+                                <Text>Created on</Text>
+                                <Text as='span' color='gray.500'>{bugDate.date}</Text>
+                            </Flex>
+                            <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between' gap={{base: 1, lg: 3}}>
+                                <Text>By</Text>
+                                <Text as='span' color='gray.500'>{bug.user.name}</Text>
+                            </Flex>
+                            <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between' gap={{base: 1, lg: 3}}>
+                                <Text>Assigned to</Text>
+                                <Text as='span' color='gray.500'>{bug.assignedTo?.name || 'Not assigned'}</Text>
+                            </Flex>
                         </Flex>
                     </HStack>
                     </CardBody>
+                    <CardFooter>
+                        {
+                            (user.uid === bug.user._id || user.uid === bug.project.leader) && <Button ml='auto' colorScheme='purple' onClick={() => onOpen(true)}>Edit</Button>
+                        }
+                    </CardFooter>
                     </Card>
                     <Card w='100%'>
                     <CardBody>
@@ -103,7 +127,7 @@ export function BugView() {
 
                 </VStack>
 
-                <BugComments comments={bug.comments} column={{base: '1', xl: '2'}}/>
+                <BugComments comments={bug.comments} column={{base: '1', lg: '2'}}/>
             </Grid>
             </>
         )

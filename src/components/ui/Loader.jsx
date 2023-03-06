@@ -8,7 +8,6 @@ export function Loader() {
         <Flex w='100%' h={`calc((${vh}px, 1vh) * 100)`} alignItems='center' justifyContent='center' bgGradient="linear(to-tr, purple.300, purple.500, purple.800)">
             <Center bg='white' boxShadow='0 4px 6px rgba(0, 0, 0, 0.5)' borderRadius={8} h={{base: '200px', lg: '300px'}} w={{base: '200px', lg: '300px'}}>
                 <VStack>
-                    <Text fontSize={24} my={2}>Loading...</Text>
                     <CircularProgress isIndeterminate color="purple.300"/>
                 </VStack>
             </Center>

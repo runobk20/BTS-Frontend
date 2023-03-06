@@ -13,9 +13,13 @@ export function AppLayout() {
     return (
         <Flex flexDir='column' height={`calc((${vh}px, 1vh) * 100)`} overflowX='hidden'>
             <DrawerSidebar isOpen={isOpen} onClose={onClose} drawerRef={btnRef}/>
+                
+            <Box flex='1' px={{base: '6', sm: '12', md: '16'}} pb={{base: '12'}}>
                 <IconButton
+                    display='block'
+                    marginRight='auto'
+                    marginTop='15px'
                     aria-label="Open menu"
-                    position='absolute' top='2' left='2'
                     fontSize={25}
                     zIndex={10}
                     background='none'
@@ -23,7 +27,6 @@ export function AppLayout() {
                     icon={<FaBars/>}
                     onClick={() => onOpen(true)}
                 />
-            <Box flex='1' px={{base: '6', sm: '12', md: '16'}} py={{base: '12'}}>
                 <Outlet/>
             </Box>
             <Footer/>
