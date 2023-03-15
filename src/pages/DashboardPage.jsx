@@ -9,7 +9,7 @@ import { BugsTable } from "../components/";
 export function DashboardPage() {
     const {user} = useAuthStore();
     const {bugs} = user;
-    
+
     const priorityData = createChartData(bugs, ['Low', 'Medium', 'High', 'Immediate'], 'priority');
     const [priorityChart, setPriorityChart] = useState({
         labels: priorityData.map(data => data.x),
@@ -88,7 +88,7 @@ export function DashboardPage() {
             </Flex>
         </Flex>
 
-            <Card flex='2' px={6} py={3}>
+            <Card flex='2' px={3} py={3} minW='-webkit-fit-content'>
                 <BugsTable bugs={bugs}/>
             </Card>
         </Flex>

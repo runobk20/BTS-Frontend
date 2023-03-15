@@ -20,4 +20,4 @@ export const bugSlice = createSlice({
 });
 
 
-export const { onCleanError, onError ,onSetActiveBug } = bugSlice.actions;
+export const { onCleanError, onError , onSetActiveBug } = bugSlice.actions;

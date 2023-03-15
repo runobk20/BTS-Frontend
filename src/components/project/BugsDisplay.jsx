@@ -44,7 +44,7 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
             return setBugList(bugs);
         }
 
-        const filteredBugs = bugList.filter(bug => {
+        const filteredBugs = bugs.filter(bug => {
             if(bug.title.toLowerCase().includes(searchInput.toLowerCase())) {
                 return bug;
             }
@@ -61,11 +61,11 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
             <Flex flexDir='column' gap={3} mb={3}>
             <Box display='flex' flexDir={{base: 'column', lg: 'row'}} gap={3}>
                 <SearchBar value={searchValue} onChangeFn={handleChange}/>
-                <FilterInput label='Filter by status' value={statusFilter}  defaultValue='All' options={statusOptions} onChangeFn={e => setStatusFilter(e.target.value)} filterFn={filterBugsBy.bind(null, statusFilter, bugs, 'status')}/>
+                <FilterInput value={statusFilter}  defaultValue='Filter by status' options={statusOptions} onChangeFn={e => setStatusFilter(e.target.value)} filterFn={filterBugsBy.bind(null, statusFilter, bugs, 'status')}/>
             </Box>
             <Box display='flex' flexDir={{base: 'column', lg: 'row'}} gap={3}>
-                <FilterInput label='Filter by priority' value={priorityFilter}  defaultValue='All' options={priorityOptions} onChangeFn={e => setPriorityFilter(e.target.value)} filterFn={filterBugsBy.bind(null, priorityFilter, bugs, 'priority')}/>
-                <FilterInput label='Filter by severity' value={severityFilter}  defaultValue='All' options={severityOptions} onChangeFn={e => setSeverityFilter(e.target.value)} filterFn={filterBugsBy.bind(null, severityFilter, bugs, 'severity')}/>
+                <FilterInput value={priorityFilter}  defaultValue='Filter by priority' options={priorityOptions} onChangeFn={e => setPriorityFilter(e.target.value)} filterFn={filterBugsBy.bind(null, priorityFilter, bugs, 'priority')}/>
+                <FilterInput value={severityFilter}  defaultValue='Filter by severity' options={severityOptions} onChangeFn={e => setSeverityFilter(e.target.value)} filterFn={filterBugsBy.bind(null, severityFilter, bugs, 'severity')}/>
             </Box>
             </Flex>
             <Grid gridTemplateColumns={{base: '1fr', xl: 'repeat(2, 1fr)'}} gridColumnGap={4} gridRowGap={4}>
@@ -80,24 +80,24 @@ export function BugsDisplay({bugs = [], isLeader, projectMembers}) {
                                 <Text color='gray.500'>Id: {bug._id}</Text>
                                 <Text color='gray.500'>{bugDate.date}</Text>
                             </Flex>
-                            <Flex gap={{base: 2, md: 0}} justifyContent='space-between'>
+                            <Flex flexDir='column' gap={{base: 2, md: 3}} justifyContent='space-between'>
                                 <Heading fontSize={{base: '20px', lg: '22px'}}>{bug.title}</Heading>
                                 <Tag maxW='100px' colorScheme={tagColors[bug.status]} style={tagStyle}><TagLabel>{bug.status}</TagLabel></Tag>
                             </Flex>
                             <Divider mt={3}/>
                         </CardHeader>
                         <CardBody display='flex' justifyContent='space-between' gap={3}>
-                            <Box display='flex' flexDir='column' gap={3}>
+                            <Box display='flex' flexDir='column' justifyContent='center' gap={3}>
                                 <Flex flexDir={{base: 'column', lg: 'row'}} gap={{base: 1, lg: 3}}>
                                     <Text>Priority</Text>
                                     <Tag colorScheme={attColors[bug.priority]}>{bug.priority}</Tag>
                                 </Flex>
-                                <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between'>
+                                <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between' gap={{base: 1, lg: 2}}>
                                     <Text>Severity</Text>
                                     <Tag colorScheme={attColors[bug.severity]}>{bug.severity}</Tag>
                                 </Flex>
                             </Box>
-                            <Box display='flex' flexDir='column' justifyContent='space-between' gap={3}>
+                            <Box display='flex' flexDir='column' justifyContent='center' gap={3}>
                                 <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between' gap={{base: 1, lg: 3}}>
                                     <Text>By</Text>
                                     <Text as='span' color='gray.500'>{bug.user.name}</Text>

@@ -14,7 +14,6 @@ export function useAuthStore() {
         dispatch(onChecking());
 
         try {
-            
             const {data} = await backendApi.post('/auth/login', {email, password});
             const {token, ok, ...payload} = data;
             localStorage.setItem('token', token);
@@ -58,7 +57,10 @@ export function useAuthStore() {
     async function checkAuthToken() {
         const token = localStorage.getItem('token');
 
-        if(!token) return dispatch(onLogout(null));
+        if(!token) {
+            dispatch(onLogout(null));
+            navigate('/');
+        }
 
         try {
             

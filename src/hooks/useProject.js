@@ -24,7 +24,8 @@ export function useProject() {
             setErrorMsg(errMsg);
             setTimeout(() => {
                 setErrorMsg(null);
-            }, 200);
+                navigate('/');
+            }, 300);
         }
     }
 
@@ -52,7 +53,7 @@ export function useProject() {
             setErrorMsg(errMsg);
             setTimeout(() => {
                 setErrorMsg(null);
-            }, 200);
+            }, 300);
         }
     }
 
@@ -79,7 +80,7 @@ export function useProject() {
             setErrorMsg(errMsg);
             setTimeout(() => {
                 setErrorMsg(null);
-            }, 200);
+            }, 300);
         }
     }
 
@@ -102,7 +103,7 @@ export function useProject() {
             setErrorMsg(errMsg);
             setTimeout(() => {
                 setErrorMsg(null);
-            }, 200);
+            }, 300);
         }
     }
 
@@ -125,7 +126,7 @@ export function useProject() {
             setErrorMsg(errMsg);
             setTimeout(() => {
                 setErrorMsg(null);
-            }, 200);
+            }, 300);
         }
     }
 

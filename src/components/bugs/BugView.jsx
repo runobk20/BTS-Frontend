@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAuthStore, useBugStore } from "../../hooks";
-import { Box, Button, Card, CardBody, CardFooter, Divider, Flex, Grid, Heading, HStack, IconButton, Spacer, Tag, TagLabel, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
+import { chakra, Box, Button, Card, CardBody, CardFooter, Divider, Flex, Grid, Heading, HStack, IconButton, Spacer, Tag, TagLabel, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
 import { attColors, tagColors, tagStyle, formatDate } from '../../data/bugData';
 import { BugComments } from "./BugComments";
 import { FaArrowLeft } from "react-icons/fa"
@@ -12,7 +12,7 @@ export function BugView() {
     const toast = useToast();
     const {user} = useAuthStore();
     const {bugId} = useParams();
-    const {activeBug, fetchedBug, startGetBug, errorMsg} = useBugStore();
+    const { fetchedBug, startGetBug, errorMsg, activeBug} = useBugStore();
     const {isOpen, onOpen, onClose} = useDisclosure();
     const bug = activeBug || fetchedBug;
     const bugDate = bug && formatDate(bug.date);
@@ -24,15 +24,18 @@ export function BugView() {
     }, []);
 
     useEffect(() => {
-        if(errorMsg !== null) toast({
-            title: 'Oops...',
+        if(errorMsg !== null) {
+            console.log('Running bugview')
+            toast({
+            title: 'BUG VIEW...',
             description: errorMsg,
             status: 'error',
             duration: 5000,
             isClosable: true,
             variant: 'solid',
             position: 'top-right'
-        })
+            }
+        )}
     },[errorMsg]);
 
     return (
@@ -42,7 +45,7 @@ export function BugView() {
             <Grid templateColumns={{base: '1', lg: '2fr 1fr'}} gap={6}>
                 <VStack alignItems='start' spacing={8}>
                 
-                    <Card w='100%'>
+                    <Card width='100%'>
                     <CardBody>
                     <Flex gap={3} justify='space-between' alignItems='center'>
                         <Flex flexDir='column' gap={3}>
@@ -56,7 +59,7 @@ export function BugView() {
                                     icon={<FaArrowLeft/>}
                                     onClick={() => navigate(`/projects/${bug.project._id}`)}
                                 />
-                                <Heading as='h2'>{bug.title}</Heading>
+                                <Heading as='h2' fontSize={{base: '26px', md: '28px'}}>{bug.title}</Heading>
                             </Flex>
                             <Heading as='h3' fontSize={20} mb={3} color='gray.500'>{bug.project.name}</Heading>
                         </Flex>
@@ -70,7 +73,7 @@ export function BugView() {
                                 <Spacer/>
                                 <Tag colorScheme={attColors[bug.priority]}>{bug.priority}</Tag>
                             </Flex>
-                            <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between'>
+                            <Flex flexDir={{base: 'column', lg: 'row'}} justifyContent='space-between' gap={{base: 0, lg: 3}}>
                                 <Text>Severity</Text>
                                 <Spacer/>
                                 <Tag colorScheme={attColors[bug.severity]}>{bug.severity}</Tag>
@@ -109,7 +112,7 @@ export function BugView() {
                         <Divider/>
                         <Box>
                             <Heading as='h3' mb={3} fontSize={24}>Steps to reproduce</Heading>
-                            <Text fontSize={{base: '16px', md: '18px', lg: '20px'}}>{bug.stepsToRep}</Text>
+                            <chakra.pre fontSize={{base: '16px', md: '18px', lg: '20px'}} fontFamily='body' whiteSpace='pre-line'>{bug.stepsToRep}</chakra.pre>
                         </Box>
                         <Divider/>
                         <Box>

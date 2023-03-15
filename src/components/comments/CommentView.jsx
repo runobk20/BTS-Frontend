@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Text, useToast } from "@chakra-ui/react";
+import { chakra, Avatar, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Text, useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAuthStore, useBugStore } from "../../hooks";
 
@@ -11,6 +11,8 @@ export function CommentView({comment}) {
     function onDeleteComment() {
         startDeleteComment(comment._id, comment.user.id, comment.bug);
     }
+
+    console.log(comment.content)
 
     useEffect(() => {
         if(errorMsg !== null) toast({
@@ -35,9 +37,12 @@ export function CommentView({comment}) {
         </CardHeader>
         <Divider w='90%' m='0 auto' color='gray.300'/>
         <CardBody>
-            <Text>
+            <chakra.pre
+                fontFamily='body'
+                whiteSpace='pre-line'
+            >
                 {comment.content}
-            </Text>
+            </chakra.pre>
         </CardBody>
         <CardFooter>
             {

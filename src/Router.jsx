@@ -11,10 +11,7 @@ export function Router() {
         checkAuthToken();
     },[]);
 
-    useEffect(() => {
-        if(isLogged === 'checking') <Loader/>
-    }, [isLogged]);
-    
+    if(isLogged === 'checking') return <Loader/>
 
     return (
         <>

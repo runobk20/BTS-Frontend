@@ -13,7 +13,7 @@ export function AssignBugModal({onClose, isOpen, projectMembers}) {
 
     useEffect(() => {
         if(errorMsg !== null) toast({
-            title: 'Oops...',
+            title: 'Assign Bug...',
             description: errorMsg,
             status: 'error',
             duration: 5000,
@@ -56,7 +56,7 @@ export function AssignBugModal({onClose, isOpen, projectMembers}) {
                                         </Tr>
                                         )
                                 })
-                                )  
+                                )
                             }
                         </Tbody>
                     </Table>
@@ -72,5 +72,4 @@ export function AssignBugModal({onClose, isOpen, projectMembers}) {
             </ModalContent>
         </Modal>
     )
-
 }

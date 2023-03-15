@@ -43,10 +43,10 @@ export function ProjectPage() {
             <DeleteProjectAlert isOpen={isOpen} onClose={onClose} projectId={projectId}/>
             <CreateBugModal isOpen={newBugIsOpen} onClose={onNewBugClose} projectId={projectId}/>
 
-                <Grid templateColumns={{base: '1', md: '1fr 2fr'}} gap={6}>
+                <Grid templateColumns={{base: '1', lg: '1fr 2fr'}} gap={6}>
                     <VStack alignItems='start' flexBasis='1'>
                     <Heading as='h2' mb={3}>{project.name}</Heading>
-                    <Card>
+                    <Card w='100%'>
                     <CardBody>
                         <Flex direction='column' gap={3} w='100%'>
                         <Text>{project.description}</Text>

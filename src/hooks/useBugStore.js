@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import backendApi from "../api/backendApi";
-import { onError, onSetActiveBug } from "../store";
+import { onError, onSetActiveBug, onCleanError } from "../store";
 
 export function useBugStore() {
     const toast = useToast();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {activeBug, errorMsg, onCleanError} = useSelector(state => state.bug);
+    const {activeBug, errorMsg} = useSelector(state => state.bug);
     const [fetchedBug, setFetchedBug] = useState();
 
     function setActiveBug(bug) {
@@ -19,12 +19,14 @@ export function useBugStore() {
     async function startGetBug(bugId) {
         try {
             const {data} = await backendApi.get(`/bugs/${bugId}`);
-            setFetchedBug(data.bug);
+            setFetchedBug(data.bug)
+            dispatch(onSetActiveBug(data.bug));
         } catch (error) {
+            console.log(error)
             const errMsg = error.response?.data.msg || 'Something went wrong';
             dispatch(onError(errMsg));
             setTimeout(() => {
-                dispatch(onCleanError(null));
+                dispatch(onCleanError());
             }, 200);
         }
         }
@@ -53,7 +55,7 @@ export function useBugStore() {
             const errMsg = error.response?.data.msg || 'Something went wrong';
             dispatch(onError(errMsg));
             setTimeout(() => {
-                dispatch(onCleanError(null));
+                dispatch(onCleanError());
             }, 200);
         }
     }
@@ -78,7 +80,7 @@ export function useBugStore() {
             const errMsg = error.response?.data.msg || 'Something went wrong';
             dispatch(onError(errMsg));
             setTimeout(() => {
-                dispatch(onCleanError(null));
+                dispatch(onCleanError());
             }, 200);
         }
 
@@ -134,7 +136,7 @@ export function useBugStore() {
             const errMsg = error.response?.data.msg || 'Something went wrong';
             dispatch(onError(errMsg));
             setTimeout(() => {
-                dispatch(onCleanError(null));
+                dispatch(onCleanError());
             }, 200);
         }
     }
@@ -142,7 +144,7 @@ export function useBugStore() {
     async function startAddComment(bugId, comment) {
 
         try {
-            await backendApi.post('comments', {bugId, comment});
+            await backendApi.post('comments/add', {bugId, comment});
             toast({
                 title: 'Comment added',
                 description: 'Thank you for your contribution...',
@@ -157,7 +159,7 @@ export function useBugStore() {
             const errMsg = error.response?.data.msg || 'Something went wrong';
             dispatch(onError(errMsg));
             setTimeout(() => {
-                dispatch(onCleanError(null));
+                dispatch(onCleanError());
             }, 200);
         }
     }
@@ -186,7 +188,7 @@ export function useBugStore() {
             const errMsg = error.response?.data.msg || 'Something went wrong';
             dispatch(onError(errMsg));
             setTimeout(() => {
-                dispatch(onCleanError(null));
+                dispatch(onCleanError());
             }, 200);
         }
     }
