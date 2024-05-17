@@ -7,7 +7,7 @@ export function AuthLayout() {
 	
 	return (
 		<Flex
-			h={`calc((${vh}px, 1vh) * 100)`}
+			minH='100vh'
 			bgGradient="linear(to-tr, purple.300, purple.500, purple.800)"
 			justifyContent="center"
 			direction="column"

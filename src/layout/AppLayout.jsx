@@ -11,7 +11,7 @@ export function AppLayout() {
     const btnRef = useRef();
 
     return (
-        <Flex flexDir='column' height={`calc((${vh}px, 1vh) * 100)`} overflowX='hidden'>
+        <Flex flexDir='column' minH='100vh' overflowX='hidden'>
             <DrawerSidebar isOpen={isOpen} onClose={onClose} drawerRef={btnRef}/>
                 
             <Box flex='1' px={{base: '6', sm: '12', md: '16'}} pb={{base: '12'}}>
